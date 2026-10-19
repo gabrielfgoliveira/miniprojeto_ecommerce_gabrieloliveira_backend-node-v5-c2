@@ -1,0 +1,1 @@
+//Funções de consolidação e apresentação dos resultados.
