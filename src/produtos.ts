@@ -1,7 +1,7 @@
 //Cadastro, consulta, atualização e remoção de produtos.
 import type { Produto } from "./types.js";
 
-let produtos: Produto[] = [];
+let produtos: Produto[] = [{id: 1, nome: "Garrafa de Café", categoria: "Recipientes", preco: 80.00, estoque: 51}, {id: 2, nome: "Cafeteira", categoria: "Eletrodomésticos", preco: 150.00, estoque: 60}, {id: 3, nome: "Caneta esferográfica", categoria: "Papelaria", preco: 1.20, estoque: 115}];
 
 export function cadastrarProduto(produto: Produto): boolean {
 
@@ -12,7 +12,7 @@ export function cadastrarProduto(produto: Produto): boolean {
         return false;
     }
 
-    if(produto.nome == ''){
+    if(produto.nome.trim() == ''){ //trim() para caso o usuário tenha inserido somente uma cadeia de espaços. 
         console.log("O nome do produto não pode estar vazio.");
         return false;
     } else if (produto.preco <= 0){
