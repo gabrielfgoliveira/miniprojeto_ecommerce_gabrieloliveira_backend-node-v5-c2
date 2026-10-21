@@ -2,7 +2,7 @@
 
 import { Cliente } from "./types";
 
-let clientes: Cliente[] = [{id: 1, nome: "Gabriel", email: "gabriel.oliveira@example.com"}, {id: 2, nome: "João", email: "joao.silva@example.com"}, {id: 3, nome: "Júlia", email: "julia.santos@example.com"}]
+let clientes: Cliente[] = [{id: 1, nome: "Gabriel de Oliveira", email: "gabriel.oliveira@example.com"}, {id: 2, nome: "João da Silva", email: "joao.silva@example.com"}, {id: 3, nome: "Júlia dos Santos", email: "julia.santos@example.com"}]
 
 export function cadastrarCliente(cliente: Cliente): boolean {
 
