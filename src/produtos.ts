@@ -8,18 +8,18 @@ export function cadastrarProduto(produto: Produto): boolean {
     let IDExistente = buscarProduto(produto.id);
 
     if(IDExistente != undefined){
-        console.log("O ID do produto precisa ser único.")
+        console.log("[CADPR]: O ID do produto precisa ser único.")
         return false;
     }
 
     if(produto.nome.trim() == ''){ //trim() para caso o usuário tenha inserido somente uma cadeia de espaços. 
-        console.log("O nome do produto não pode estar vazio.");
+        console.log("[CADPR]: O nome do produto não pode estar vazio.");
         return false;
     } else if (produto.preco <= 0){
-        console.log("O preço do produto não pode ser menor ou igual a zero.");
+        console.log("[CADPR]: O preço do produto não pode ser menor ou igual a zero.");
         return false;
     } else if (produto.estoque < 0){
-        console.log("O estoque do produto não pode ser menor que zero.");
+        console.log("[CADPR]: O estoque do produto não pode ser menor que zero.");
         return false;
     } else{
         produtos.push(produto);
@@ -42,6 +42,37 @@ export function buscarProduto(parametro: number | string): Produto | undefined {
     }
 }
 
+export function atualizarProduto(id: number, produtoEditado: Produto): boolean{
+    let produtoExiste = buscarProduto(id);
+
+    if(produtoExiste){
+        if(deletarProduto(id)){
+            if(cadastrarProduto(produtoEditado)){
+                return true;
+            }
+        }
+    } else{
+        console.log("[ATLPR]: O produto não existe ou não foi encontrado")
+    }
+
+    return false;
+}
+
+export function deletarProduto(id: number): boolean{
+    let produtoExiste = buscarProduto(id);
+    let indiceParaDeletar = produtos.findIndex((produto) => produto.id === id);
+    if(produtoExiste && indiceParaDeletar != undefined){
+        produtos.splice(indiceParaDeletar, 1);
+        return true;
+    } else{
+        console.log("[DELPR]: O produto não existe ou não foi encontrado.");
+        return false;
+    }
+
+    return false;
+}
+
+
 export function listarProdutos(): void{
     console.log("=====|LISTA DE PRODUTOS|=====")
     console.log("|ID|NOME|CATEGORIA|PRECO|EM ESTOQUE|")
@@ -49,4 +80,9 @@ export function listarProdutos(): void{
         console.log(`|${produto.id}|${produto.nome}|${produto.categoria}|${produto.preco}|${produto.estoque}|`)
     }
     console.log("=============================");
+}
+
+export function filtrarProdutos(categoria: string): Produto[]{
+    let produtosFiltrados = produtos.filter((produto) => produto.categoria === categoria);
+    return produtosFiltrados;
 }
