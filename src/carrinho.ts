@@ -21,8 +21,9 @@ export class Carrinho{
 
     adicionarItem(id: number, quantidade: number): boolean{
         let produtoExiste = buscarProduto(id);
+        let itemExistente = this.itens.find((item) => item.produtoId === id)
 
-        if(produtoExiste){
+        if(produtoExiste && !itemExistente){ //Caso o produto exista e não está no carrinho
             if(quantidade > 0){
                 this.itens.push({produtoId: id, quantidade: quantidade});
                 return true;
@@ -30,11 +31,18 @@ export class Carrinho{
                 console.log("[ADIPR]: A quantidade de itens não pode ser menor que zero.");
                 return false;
             }
+        } else if(produtoExiste && itemExistente){
+            if(quantidade > 0){
+                itemExistente.quantidade += 1;
+                return true;
+            } else{
+                console.log("[ADIPR]: A quantidade de itens não pode ser menor que zero.");
+                return false;
+            }
         } else{
-            console.log("[ADIPR]: O produto não existe ou não foi encontrado");
+            console.log("[ADIPR]: O produto não existe ou não foi encontrado.");
             return false;
         }
-
     }
 
     listarItens(): void{
@@ -43,7 +51,7 @@ export class Carrinho{
         for(let item of this.itens){
             console.log(`|${item.produtoId}|${buscarProduto(item.produtoId)?.nome}|${buscarProduto(item.produtoId)?.preco}|${item.quantidade}|${this.calcularSubtotal(item)}|`);
         }
-        console.log("\n [TOTAL]: " + this.calcularTotal())
+        console.log("\n[TOTAL]: " + this.calcularTotal())
         console.log("=================================================");
     }
 
