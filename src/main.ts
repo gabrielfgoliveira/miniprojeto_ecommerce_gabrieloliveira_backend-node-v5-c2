@@ -39,5 +39,13 @@ const carrinho2 = new Carrinho(3);
 carrinho2.adicionarItem(4, 2);
 carrinho2.adicionarItem(1, 3);
 carrinho2.adicionarItem(1, 1); 
+carrinho2.adicionarItem(1, 1); 
+
+carrinho2.listarItens();
+
+//carrinho2.removerItem(1, 4);
+console.log("Removido");
+
+carrinho2.adicionarItem(1, 4611111);
 
 carrinho2.listarItens();
