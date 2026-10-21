@@ -38,6 +38,6 @@ const carrinho2 = new Carrinho(3);
 
 carrinho2.adicionarItem(4, 2);
 carrinho2.adicionarItem(1, 3);
-carrinho2.adicionarItem(1, 1); //Corrigir: O sistema está permitindo duplicatas.
+carrinho2.adicionarItem(1, 1); 
 
 carrinho2.listarItens();
