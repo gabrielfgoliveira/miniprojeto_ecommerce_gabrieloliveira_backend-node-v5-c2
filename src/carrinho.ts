@@ -20,27 +20,58 @@ export class Carrinho{
     }
 
     adicionarItem(id: number, quantidade: number): boolean{
-        let produtoExiste = buscarProduto(id);
-        let itemExistente = this.itens.find((item) => item.produtoId === id)
+        let produtoExistente = buscarProduto(id);
+        let itemExistente = this.itens.find((item) => item.produtoId === id);
 
-        if(produtoExiste && !itemExistente){ //Caso o produto exista e não está no carrinho
-            if(quantidade > 0){
+        if(produtoExistente && !itemExistente){ //Caso o produto exista e não está no carrinho
+            if(quantidade > 0 && quantidade <= produtoExistente.estoque){
                 this.itens.push({produtoId: id, quantidade: quantidade});
                 return true;
-            } else{
-                console.log("[ADIPR]: A quantidade de itens não pode ser menor que zero.");
+            } else if(quantidade > 0 && quantidade > produtoExistente.estoque){
+                console.log("[ADIPR]: A quantidade de itens não pode ser maior que a quantidade em estoque.");
+                return false;
+            }else{
+                console.log("[ADIPR]: A quantidade de itens não pode ser menor ou igual a zero.");
                 return false;
             }
-        } else if(produtoExiste && itemExistente){
-            if(quantidade > 0){
-                itemExistente.quantidade += 1;
+        } else if(produtoExistente && itemExistente){
+            if(quantidade > 0 && quantidade <= produtoExistente.estoque && (quantidade + itemExistente.quantidade) <= produtoExistente.estoque){
+                itemExistente.quantidade += quantidade;
                 return true;
+            } else if(quantidade > 0 && quantidade > produtoExistente.estoque || (quantidade + itemExistente.quantidade) > produtoExistente.estoque){
+                console.log("[ADIPR]: A quantidade de itens não pode ser maior que a quantidade em estoque.");
+                return false;
             } else{
-                console.log("[ADIPR]: A quantidade de itens não pode ser menor que zero.");
+                console.log("[ADIPR]: A quantidade de itens não pode ser menor ou igual a zero.");
                 return false;
             }
         } else{
             console.log("[ADIPR]: O produto não existe ou não foi encontrado.");
+            return false;
+        }
+    }
+
+    removerItem(id: number, qtdARemover: number): boolean{
+        let produtoExiste = buscarProduto(id);
+        let itemExistente = this.itens.find((item) => item.produtoId === id)
+
+        if(produtoExiste && !itemExistente){ //Caso o produto exista e não está no carrinho
+            console.log("[REMIT]: O produto não se encontra no carrinho.")
+            return false;
+        } else if(produtoExiste && itemExistente){
+            if(qtdARemover > 0 && itemExistente.quantidade > qtdARemover){ //Se a quantidade a remover for maior que zero e menor que a quantidade de itens do mesmo produto no carrinho
+                itemExistente.quantidade -= qtdARemover;
+                return true;
+            } else if(qtdARemover > 0 && itemExistente.quantidade <= qtdARemover){
+                let indiceProdutoARemover = this.itens.findIndex((item) => item.produtoId === itemExistente.produtoId);
+                this.itens.splice(indiceProdutoARemover);
+                return true;
+            }else{
+                console.log("[REMIT]: A quantidade de itens a remover não pode ser menor ou igual a zero.");
+                return false;
+            }
+        } else{
+            console.log("[REMIT]: O produto não existe ou não foi encontrado.");
             return false;
         }
     }
