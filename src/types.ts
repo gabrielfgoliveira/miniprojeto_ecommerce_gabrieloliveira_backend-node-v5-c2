@@ -24,3 +24,8 @@ export type Pedido = {
     clienteId: number,
     itens: number[] //lista de IDs dos produtos
 }
+
+export type ItemCarrinho = {
+    produtoId: number;
+    quantidade: number;
+}
