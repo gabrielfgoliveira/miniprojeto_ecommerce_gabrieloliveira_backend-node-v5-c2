@@ -3,6 +3,7 @@
 import { Cliente, Produto, ItemCarrinho } from "./types";
 import { buscarProduto } from "./produtos";
 import { buscarCliente } from "./clientes";
+import { registrarPedido } from "./pedidos";
 
 export class Carrinho{
     clienteId: number;
@@ -96,7 +97,7 @@ export class Carrinho{
         }
     }
 
-    calcularTotal(){
+    calcularTotal(): number{
 
         let total = 0;
         for(const item of this.itens){
@@ -109,6 +110,10 @@ export class Carrinho{
         }
 
         return total;
+    }
+
+    finalizar(): void{
+        registrarPedido(this.clienteId, this.itens, this.calcularTotal());
     }
 }
 
