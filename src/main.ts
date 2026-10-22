@@ -3,6 +3,7 @@
 import { atualizarProduto, buscarProduto, cadastrarProduto, deletarProduto, filtrarProdutos, listarProdutos } from "./produtos";
 import { listarClientes, buscarCliente, cadastrarCliente } from "./clientes";
 import { Carrinho } from "./carrinho";
+import { listarPedidos } from "./pedidos";
 
 cadastrarProduto({id: 4, nome: "Garrafa de Água", categoria: "Recipientes", preco: 50.00, estoque: 100});
 
@@ -46,6 +47,19 @@ carrinho2.listarItens();
 //carrinho2.removerItem(1, 4);
 console.log("Removido");
 
-carrinho2.adicionarItem(1, 4611111);
+//carrinho2.adicionarItem(1, 4611111);
 
 carrinho2.listarItens();
+
+listarPedidos();
+
+carrinho2.finalizar();
+carrinho1.finalizar();
+
+listarPedidos();
+
+listarPedidos(5);
+listarPedidos(3);
+
+listarProdutos();
+
