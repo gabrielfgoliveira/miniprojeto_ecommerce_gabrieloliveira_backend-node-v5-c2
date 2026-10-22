@@ -14,15 +14,12 @@ export type Cliente = {
     email: string,
 }
 
-export type Carrinho = {
-    cliente: Cliente, //o carrinho está atrelado diretamente ao objeto Cliente até que o mesmo seja fechado.
-    produtos: number[], //lista de IDs dos produtos
-}
-
 export type Pedido = {
     id: number,
     clienteId: number,
-    itens: number[] //lista de IDs dos produtos
+    itens: ItemCarrinho[] //lista de IDs dos produtos
+    total: number;
+    data: Date;
 }
 
 export type ItemCarrinho = {
