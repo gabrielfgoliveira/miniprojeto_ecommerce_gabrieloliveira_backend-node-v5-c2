@@ -86,3 +86,20 @@ export function filtrarProdutos(categoria: string): Produto[]{
     let produtosFiltrados = produtos.filter((produto) => produto.categoria === categoria);
     return produtosFiltrados;
 }
+
+export function atualizarEstoqueProduto(produtoId: number, quantidadeARemover: number): boolean{
+    const produtoExiste = buscarProduto(produtoId);
+
+    if(produtoExiste){
+        if(quantidadeARemover > 0){
+            produtoExiste.estoque -= quantidadeARemover;
+            return true;
+        } else{
+            console.log("(X) [ATEP]: A quantidade de itens a remover precisa ser maior que zero.");
+            return false;
+        }
+    } else{
+        console.log("(X) [ATEP]: O produto não existe ou não foi encontrado.");
+        return false;
+    }
+}
