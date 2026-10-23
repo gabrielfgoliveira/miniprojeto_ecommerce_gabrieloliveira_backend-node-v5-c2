@@ -10,16 +10,18 @@ import { registrarPedido } from "./pedidos";
 export class Carrinho{
     clienteId: number;
     itens: ItemCarrinho[];
-    clienteObj: Cliente;
+    clienteObj: Cliente | null;
 
     constructor(clienteId: number){
         this.clienteId = clienteId;
         this.itens = [];
         const cliente = buscarCliente(clienteId);
-        if (!cliente) {
-            throw new Error(`Cliente com ID ${clienteId} não encontrado.`); //----------------------------------TEMPORÁRIO MUDAR TEXTO DEPOIS------------------------------------
+        if(cliente != undefined){
+            this.clienteObj = cliente;
+        } else{
+            this.clienteObj = null;
+            console.error(`(!!!) [CONCA]: O ID "${clienteId}" vinculado à este carrinho não existe ou não foi encontrado. Utilizá-lo pode acarretar em resultados inesperados.`);
         }
-        this.clienteObj = cliente;
     }
 
     adicionarItem(id: number, quantidade: number): boolean{
@@ -29,7 +31,7 @@ export class Carrinho{
         if(produtoExistente && !itemExistente){ //Caso o produto exista e não está no carrinho
             if(quantidade > 0 && quantidade <= produtoExistente.estoque){
                 this.itens.push({produtoId: id, quantidade: quantidade});
-                console.log("(i) [ADIIT}: Item adicionado com sucesso!");
+                console.log("(i) [ADIIT]: Item adicionado com sucesso!");
                 return true;
             } else if(quantidade > 0 && quantidade > produtoExistente.estoque){
                 console.log("(X) [ADIIT]: A quantidade de itens não pode ser maior que a quantidade em estoque.");
@@ -84,7 +86,7 @@ export class Carrinho{
     }
 
     listarItens(): void{
-        console.log(`=====|CARRINHO DE (ID: ${this.clienteObj.id}) ${this.clienteObj.nome.toUpperCase()}|=====`);
+        console.log(`=====|CARRINHO DE (ID: ${this.clienteObj?.id}) ${this.clienteObj?.nome.toUpperCase()}|=====`);
         console.log("|ID|NOME|PRECO|QUANTIDADE|SUBTOTAL|");
         for(let item of this.itens){
             console.log(`|${item.produtoId}|${buscarProduto(item.produtoId)?.nome}|${buscarProduto(item.produtoId)?.preco}|${item.quantidade}|${this.calcularSubtotal(item)}|`);
