@@ -8,21 +8,22 @@ export function cadastrarProduto(produto: Produto): boolean {
     let IDExistente = buscarProduto(produto.id);
 
     if(IDExistente != undefined){
-        console.log("[CADPR]: O ID do produto precisa ser único.")
+        console.log("(X) [CADPR]: O ID do produto precisa ser único.");
         return false;
     }
 
     if(produto.nome.trim() == ''){ //trim() para caso o usuário tenha inserido somente uma cadeia de espaços. 
-        console.log("[CADPR]: O nome do produto não pode estar vazio.");
+        console.log("(X) [CADPR]: O nome do produto não pode estar vazio.");
         return false;
     } else if (produto.preco <= 0){
-        console.log("[CADPR]: O preço do produto não pode ser menor ou igual a zero.");
+        console.log("(X) [CADPR]: O preço do produto não pode ser menor ou igual a zero.");
         return false;
     } else if (produto.estoque < 0){
-        console.log("[CADPR]: O estoque do produto não pode ser menor que zero.");
+        console.log("(X) [CADPR]: O estoque do produto não pode ser menor que zero.");
         return false;
     } else{
         produtos.push(produto);
+        console.log("(i) [CADPR]: Produto cadastrado com sucesso!")
         return true;
     }
 }
@@ -48,11 +49,12 @@ export function atualizarProduto(id: number, produtoEditado: Produto): boolean{
     if(produtoExiste){
         if(deletarProduto(id)){
             if(cadastrarProduto(produtoEditado)){
+                console.log("(i) [ATLPR]: Produto atualizado com sucesso!");
                 return true;
             }
         }
     } else{
-        console.log("[ATLPR]: O produto não existe ou não foi encontrado")
+        console.log("(X) [ATLPR]: O produto não existe ou não foi encontrado");
     }
 
     return false;
@@ -63,9 +65,10 @@ export function deletarProduto(id: number): boolean{
     let indiceParaDeletar = produtos.findIndex((produto) => produto.id === id);
     if(produtoExiste && indiceParaDeletar != undefined){
         produtos.splice(indiceParaDeletar, 1);
+        console.log("(i) [DELPR]: Produto deletado com sucesso.");
         return true;
     } else{
-        console.log("[DELPR]: O produto não existe ou não foi encontrado.");
+        console.log("(X) [DELPR]: O produto não existe ou não foi encontrado.");
         return false;
     }
 
