@@ -18,6 +18,19 @@ export function registrarPedido(clienteId: number, itens: ItemCarrinho[], total:
         if(listaConforme){
 
                 for(let item of itens){
+                    let produtoExistente = buscarProduto(item.produtoId);
+                    
+                    if(produtoExistente != undefined){
+                        if(item.quantidade > produtoExistente?.estoque){
+                            console.log("(X) [REGPE]: A quantidade de itens pedidos não pode ser maior que a de disponíveis em estoque.");
+                            return false;
+                        }
+                    } else{
+                        console.log("(X) [REGPE]: O produto não existe ou não foi encontrado.")
+                    }
+                }
+
+                for(let item of itens){
                     atualizarEstoqueProduto(item.produtoId, item.quantidade);
                 }
 
