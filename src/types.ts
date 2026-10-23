@@ -17,7 +17,7 @@ export type Cliente = {
 export type Pedido = {
     id: number,
     clienteId: number,
-    itens: ItemCarrinho[] //lista de IDs dos produtos
+    itens: ItemCarrinho[]
     total: number;
     data: Date;
 }
