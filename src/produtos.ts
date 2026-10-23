@@ -91,10 +91,13 @@ export function atualizarEstoqueProduto(produtoId: number, quantidadeARemover: n
     const produtoExiste = buscarProduto(produtoId);
 
     if(produtoExiste){
-        if(quantidadeARemover > 0){
+        if(quantidadeARemover > 0 && quantidadeARemover <= produtoExiste.estoque){
             produtoExiste.estoque -= quantidadeARemover;
             return true;
-        } else{
+        } else if(quantidadeARemover > 0 && quantidadeARemover > produtoExiste.estoque){
+            console.log("(X) [ATEP]: A quantidade de itens a remover não pode ser maior que a de disponíveis em estoque.");
+            return false;
+        }else{
             console.log("(X) [ATEP]: A quantidade de itens a remover precisa ser maior que zero.");
             return false;
         }
