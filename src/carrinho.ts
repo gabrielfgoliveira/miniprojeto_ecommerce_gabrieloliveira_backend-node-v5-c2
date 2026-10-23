@@ -29,52 +29,56 @@ export class Carrinho{
         if(produtoExistente && !itemExistente){ //Caso o produto exista e não está no carrinho
             if(quantidade > 0 && quantidade <= produtoExistente.estoque){
                 this.itens.push({produtoId: id, quantidade: quantidade});
+                console.log("(i) [ADIIT}: Item adicionado com sucesso!");
                 return true;
             } else if(quantidade > 0 && quantidade > produtoExistente.estoque){
-                console.log("[ADIIT]: A quantidade de itens não pode ser maior que a quantidade em estoque.");
+                console.log("(X) [ADIIT]: A quantidade de itens não pode ser maior que a quantidade em estoque.");
                 return false;
             }else{
-                console.log("[ADIIT]: A quantidade de itens não pode ser menor ou igual a zero.");
+                console.log("(X) [ADIIT]: A quantidade de itens não pode ser menor ou igual a zero.");
                 return false;
             }
         } else if(produtoExistente && itemExistente){
             if(quantidade > 0 && quantidade <= produtoExistente.estoque && (quantidade + itemExistente.quantidade) <= produtoExistente.estoque){
                 itemExistente.quantidade += quantidade;
+                console.log("(i) [ADIIT}: Item adicionado com sucesso!");
                 return true;
             } else if(quantidade > 0 && quantidade > produtoExistente.estoque || (quantidade + itemExistente.quantidade) > produtoExistente.estoque){
-                console.log("[ADIIT]: A quantidade de itens não pode ser maior que a quantidade em estoque.");
+                console.log("(X) [ADIIT]: A quantidade de itens não pode ser maior que a quantidade em estoque.");
                 return false;
             } else{
-                console.log("[ADIIT]: A quantidade de itens não pode ser menor ou igual a zero.");
+                console.log("(X) [ADIIT]: A quantidade de itens não pode ser menor ou igual a zero.");
                 return false;
             }
         } else{
-            console.log("[ADIIT]: O produto não existe ou não foi encontrado.");
+            console.log("(X) [ADIIT]: O produto não existe ou não foi encontrado.");
             return false;
         }
     }
 
     removerItem(id: number, qtdARemover: number): boolean{
         let produtoExiste = buscarProduto(id);
-        let itemExistente = this.itens.find((item) => item.produtoId === id)
+        let itemExistente = this.itens.find((item) => item.produtoId === id);
 
         if(produtoExiste && !itemExistente){ //Caso o produto exista e não está no carrinho
-            console.log("[REMIT]: O produto não se encontra no carrinho.")
+            console.log("(X) [REMIT]: O produto não se encontra no carrinho.");
             return false;
         } else if(produtoExiste && itemExistente){
             if(qtdARemover > 0 && itemExistente.quantidade > qtdARemover){ //Se a quantidade a remover for maior que zero e menor que a quantidade de itens do mesmo produto no carrinho
                 itemExistente.quantidade -= qtdARemover;
+                console.log("(i) [REMIT]: Item removido com sucesso!");
                 return true;
             } else if(qtdARemover > 0 && itemExistente.quantidade <= qtdARemover){
                 let indiceProdutoARemover = this.itens.findIndex((item) => item.produtoId === itemExistente.produtoId);
                 this.itens.splice(indiceProdutoARemover);
+                console.log("(i) [REMIT]: Item excluído do carrinho com sucesso!");
                 return true;
             }else{
-                console.log("[REMIT]: A quantidade de itens a remover não pode ser menor ou igual a zero.");
+                console.log("(X) [REMIT]: A quantidade de itens a remover não pode ser menor ou igual a zero.");
                 return false;
             }
         } else{
-            console.log("[REMIT]: O produto não existe ou não foi encontrado.");
+            console.log("(X) [REMIT]: O produto não existe ou não foi encontrado.");
             return false;
         }
     }
@@ -94,7 +98,7 @@ export class Carrinho{
         if(produto != undefined){
             return (produto.preco * item.quantidade);
         } else{
-            console.log("[CALST]: O produto não existe ou não foi encontrado.")
+            console.log("(X) [CALST]: O produto não existe ou não foi encontrado.")
             return undefined;
         }
     }
@@ -115,6 +119,7 @@ export class Carrinho{
     }
 
     finalizar(): void{
+        console.log("(i) [FINCA]: Enviando pedido para registro...");
         registrarPedido(this.clienteId, this.itens, this.calcularTotal());
     }
 }

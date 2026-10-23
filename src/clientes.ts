@@ -10,21 +10,22 @@ export function cadastrarCliente(cliente: Cliente): boolean {
     let EmailExistente = buscarCliente(cliente.email);
 
     if(IDExistente != undefined){
-        console.log("[CADCL]: O ID do cliente precisa ser único.")
+        console.log("(X) [CADCL]: O ID do cliente precisa ser único.");
         return false;
     } else if (EmailExistente != undefined){
-        console.log("[CADCL]: O e-mail do cliente precisa ser único.")
+        console.log("(X) [CADCL]: O e-mail do cliente precisa ser único.");
         return false;
     }
 
     if(cliente.nome.trim() == ''){ //trim() para caso o usuário tenha inserido somente uma cadeia de espaços. 
-        console.log("[CADCL]: O nome do cliente não pode estar vazio.");
+        console.log("(X) [CADCL]: O nome do cliente não pode estar vazio.");
         return false;
     } else if (cliente.email.trim() == ''){
-        console.log("[CADCL]: O e-mail do cliente não pode estar vazio.");
+        console.log("(X) [CADCL]: O e-mail do cliente não pode estar vazio.");
         return false;
     } else{
         clientes.push(cliente);
+        console.log("(i) [CADCL]: Cliente cadastrado com sucesso!");
         return true;
     }
 }

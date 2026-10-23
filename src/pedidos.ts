@@ -26,7 +26,7 @@ export function registrarPedido(clienteId: number, itens: ItemCarrinho[], total:
                             return false;
                         }
                     } else{
-                        console.log("(X) [REGPE]: O produto não existe ou não foi encontrado.")
+                        console.log("(X) [REGPE]: O produto não existe ou não foi encontrado.");
                     }
                 }
 
@@ -38,8 +38,7 @@ export function registrarPedido(clienteId: number, itens: ItemCarrinho[], total:
                 controleId += 1;
 
                 pedidos.push({id: pedidoId, clienteId: clienteId, itens: itens, total: total, data: hoje});
-                console.log("(i) [REGPE] O pedido foi publicado.");
-                console.log(pedidos); //---------------------------------------------------------APAGAR DEPOIS!!!!-------------------------------------------------------------
+                console.log("(i) [REGPE] O pedido foi publicado com sucesso!");
                 return true;
         } else{
             console.log("(X) [REGPE] A lista de itens não pode estar vazia.");
