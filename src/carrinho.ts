@@ -5,6 +5,8 @@ import { buscarProduto } from "./produtos";
 import { buscarCliente } from "./clientes";
 import { registrarPedido } from "./pedidos";
 
+
+//Utilizei o carrinho como uma classe/objeto, pois imagino que ele deva ser uma instância ligada ao cliente, com métodos proprietários.
 export class Carrinho{
     clienteId: number;
     itens: ItemCarrinho[];
@@ -29,10 +31,10 @@ export class Carrinho{
                 this.itens.push({produtoId: id, quantidade: quantidade});
                 return true;
             } else if(quantidade > 0 && quantidade > produtoExistente.estoque){
-                console.log("[ADIPR]: A quantidade de itens não pode ser maior que a quantidade em estoque.");
+                console.log("[ADIIT]: A quantidade de itens não pode ser maior que a quantidade em estoque.");
                 return false;
             }else{
-                console.log("[ADIPR]: A quantidade de itens não pode ser menor ou igual a zero.");
+                console.log("[ADIIT]: A quantidade de itens não pode ser menor ou igual a zero.");
                 return false;
             }
         } else if(produtoExistente && itemExistente){
@@ -40,14 +42,14 @@ export class Carrinho{
                 itemExistente.quantidade += quantidade;
                 return true;
             } else if(quantidade > 0 && quantidade > produtoExistente.estoque || (quantidade + itemExistente.quantidade) > produtoExistente.estoque){
-                console.log("[ADIPR]: A quantidade de itens não pode ser maior que a quantidade em estoque.");
+                console.log("[ADIIT]: A quantidade de itens não pode ser maior que a quantidade em estoque.");
                 return false;
             } else{
-                console.log("[ADIPR]: A quantidade de itens não pode ser menor ou igual a zero.");
+                console.log("[ADIIT]: A quantidade de itens não pode ser menor ou igual a zero.");
                 return false;
             }
         } else{
-            console.log("[ADIPR]: O produto não existe ou não foi encontrado.");
+            console.log("[ADIIT]: O produto não existe ou não foi encontrado.");
             return false;
         }
     }
