@@ -29,7 +29,7 @@ listarClientes();
 
 const carrinho1 = new Carrinho(5);
 
-carrinho1.adicionarItem(1, 1);
+carrinho1.adicionarItem(1, 51);
 carrinho1.adicionarItem(2, 3);
 carrinho1.adicionarItem(3, 4);
 
@@ -38,9 +38,8 @@ carrinho1.listarItens();
 const carrinho2 = new Carrinho(3);
 
 carrinho2.adicionarItem(4, 2);
-carrinho2.adicionarItem(1, 3);
-carrinho2.adicionarItem(1, 1); 
-carrinho2.adicionarItem(1, 1); 
+carrinho2.adicionarItem(1, 51);
+
 
 carrinho2.listarItens();
 
