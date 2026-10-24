@@ -73,9 +73,9 @@ export function listarPedidos(parametro?: number): void{
                         console.log(`|${item.produtoId}|${buscarProduto(item.produtoId)?.nome}|${item.quantidade}|`);
                     }
                     
-                    console.log("==============================");
-
+                    
                     console.log("\n[TOTAL]: " + pedido.total);
+                    console.log("==========================");
                 }
             }
 
@@ -90,12 +90,13 @@ export function listarPedidos(parametro?: number): void{
             console.log(`=====|PEDIDO (ID: ${pedido.id})=====`);
             console.log(`Cliente: (ID: ${pedido.clienteId}) ${clienteExistente?.nome.toUpperCase()}`);
             console.log("|ID|NOME|QUANTIDADE|");
-
+            
             for(let item of pedido.itens){
                 console.log(`|${item.produtoId}|${buscarProduto(item.produtoId)?.nome}|${item.quantidade}|`);
             }
-
+            
             console.log("\n[TOTAL]: " + pedido.total);
+            console.log("==========================");
         }
 
     }
