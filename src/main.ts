@@ -48,14 +48,19 @@ console.log("\n+[[DEMO]]: Vamos inicialmente demonstrar o cadastro de um produto
 
 cadastrarProduto({id: 4, nome: "Garrafa de Água", categoria: "Recipientes", preco: 50.00, estoque: 100});
 
-console.log("\n+[[DEMO]]: Veja como ele foi cadastrado:\n");
+console.log("\n+[[DEMO]]: Mas, se o ID passado já existir:\n");
+
+cadastrarProduto({id: 4, nome: "Copo térmico", categoria: "Recipientes", preco: 150.00, estoque: 55});
+
+console.log("\n+[[DEMO]]: Veja como o primeiro item foi cadastrado:\n");
+
 listarProdutos();
 
 console.log("\n+[[DEMO]]: E se precisarmos encontrar um produto pelo ID?\n");
 console.log(buscarProduto(2));
 
 console.log("\n+[[DEMO]]:Sem ID, sem problemas! Encontramos também pela parcial do nome:\n");
-console.log(buscarProduto("Caf"));
+console.log(buscarProduto("Cafet"));
 
 console.log("\n+[[DEMO]]: E se precisar somente de produtos de uma categoria:\n");
 console.log(filtrarProdutos("Recipientes"));
@@ -72,7 +77,14 @@ listarProdutos();
 console.log("\n+[[DEMO]]: Agora, vamos cadastrar um cliente:\n");
 cadastrarCliente({id: 5, nome: "Ana dos Santos", email: "ana.santos@example.com"});
 
-console.log("\n+[[DEMO]]: Veja como ele foi cadastrado:\n");
+console.log("\n+[[DEMO]]: Porém, se o e-mail estiver ausente:\n");
+cadastrarCliente({id: 6, nome: "Francisco Lima", email: "   "});
+
+console.log("\n+[[DEMO]]: Ou o ID já existir:\n");
+cadastrarCliente({id: 5, nome: "Francisco Lima", email: "francisco.lima@example.com"});
+
+
+console.log("\n+[[DEMO]]: Veja como o primeiro cliente foi cadastrado:\n");
 
 listarClientes();
 
@@ -87,6 +99,12 @@ carrinho1.adicionarItem(2, 3);
 carrinho1.adicionarItem(1, 4);
 carrinho1.adicionarItem(3, 1);
 
+console.log("\n+[[DEMO]]: Se um item não existir:\n");
+carrinho1.adicionarItem(99999, 3);
+
+console.log("\n+[[DEMO]]: Ou tentar adicionar mais do que disponível em estoque:\n");
+carrinho1.adicionarItem(3, 99999);
+
 console.log("\n+[[DEMO]]: Oops, adicionou um item errado? Podemos eliminá-lo!\n");
 carrinho1.removerItem(3, 1);
 
@@ -100,6 +118,24 @@ console.log("\n+[[DEMO]]: Tudo certo? Podemos fechar o carrinho agora e fazer o 
 carrinho1.finalizar();
 
 console.log("\n+[[DEMO]]: E pronto! Nosso pedido foi computado:\n");
+listarPedidos();
+
+console.log("\n+[[DEMO]]: Agora, uma falha específica:\n");
+console.log("\n+[[DEMO]]: Se o ID informado na criação do carrinho for inválido, o sistema não quebra, mas o carrinho será um elefante branco:\n");
+const carrinho2 = new Carrinho(99999);
+
+console.log("\n+[[DEMO]]: Itens até podem ser adicionados...\n");
+carrinho2.adicionarItem(1, 2);
+carrinho2.adicionarItem(3, 4);
+carrinho2.adicionarItem(2, 1);
+
+console.log("\n+[[DEMO]]: Mas ao tentar fechar o pedido...\n");
+
+carrinho2.finalizar();
+
+console.log("\n+[[DEMO]]: O sistema gerador de pedidos automaticamente bloqueia a publicação pelo ID do cliente ser inválido.\n");
+console.log("+[[DEMO]]: E o pedido não é computado...");
+
 listarPedidos();
 
 console.log("\n+[[DEMO]]: E isso é tudo. Obrigado pela atenção!\n");
