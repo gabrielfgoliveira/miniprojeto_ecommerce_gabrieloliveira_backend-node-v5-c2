@@ -207,6 +207,7 @@ Javascript, Typescript e Node.js
         types.ts <span style="color: #cbd5e1;">(Arquivo que reúne todas os tipos de dados utilizados no projeto)</span>
     .gitignore
     README.MD <span style="color: #cbd5e1;">(Esta documentação)</span>
+    LICENSE.MD <span style="color: #cbd5e1;">(Licença de uso do projeto)</span>
     tsconfig.json <span style="color: #cbd5e1;">(Configurações do compilador)</span>
 </pre>
 </div>
