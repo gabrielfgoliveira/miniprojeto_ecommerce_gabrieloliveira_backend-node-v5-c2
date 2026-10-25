@@ -85,7 +85,7 @@ export function listarProdutos(): void{
     console.log("=============================");
 }
 
-export function filtrarProdutos(categoria: string): Produto[]{
+export function filtrarProdutos(categoria: string): Produto[] | undefined{
     let produtosFiltrados = produtos.filter((produto) => produto.categoria === categoria);
     return produtosFiltrados;
 }
